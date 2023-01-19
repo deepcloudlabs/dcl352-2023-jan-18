@@ -2,9 +2,9 @@ package com.example.hr.domain;
 
 import com.example.ddd.DomainEntity;
 
-// ubiquitous language: Employee, TcKimlikNo, FullName, Photo, JobStyle
+// Ubiquitous language: Employee, TcKimlikNo, FullName, Photo, JobStyle
 // Entity Class: i. identity, ii. Mutable
-@DomainEntity(identity= "identityNo")
+@DomainEntity(identity= "identityNo",aggregate=true)
 public class Employee {
 	private final TcKimlikNo identityNo;
 	private FullName fullname;

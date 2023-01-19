@@ -8,27 +8,23 @@ import com.example.ddd.DomainValueObject;
 
 // ValueObject: i. Has No IDENTITY ii. Immutable
 @DomainValueObject
-public final class TcKimlikNo {
-	private final String value;
-
-	private TcKimlikNo(String value) {
+public record TcKimlikNoRecord (String value) {
+	public TcKimlikNoRecord (String value){
+		if (!isValid(value))
+			throw new IllegalArgumentException(value);		
 		this.value = value;
 	}
-
-	public String getValue() {
-		return value;
-	}
 	
-	private static Map<String,TcKimlikNo> cache = new ConcurrentHashMap<>();
+	private static Map<String,TcKimlikNoRecord> cache = new ConcurrentHashMap<>();
 
-	public static TcKimlikNo valueOf(String value) {
+	public static TcKimlikNoRecord valueOf(String value) {
 		// validation
 		if (!isValid(value))
 			throw new IllegalArgumentException(value);
 		// object pooling -> immutable -> fly weight
 		var identity = cache.get(value);
 		if (Objects.isNull(identity)) {
-			identity = new TcKimlikNo(value);
+			identity = new TcKimlikNoRecord(value);
 			cache.put(value, identity);
 		}
 		return identity;
@@ -64,30 +60,6 @@ public final class TcKimlikNo {
 			return false;
 		}
 		return true;
-	}
-
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(value);
-	}
-	
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TcKimlikNo other = (TcKimlikNo) obj;
-		return Objects.equals(value, other.value);
-	}
-
-	@Override
-	public String toString() {
-		return "TcKimlikNo [value=" + value + "]";
 	}
 	
 }

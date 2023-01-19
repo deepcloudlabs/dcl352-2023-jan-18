@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DomainEntity {
 	String[] identity();
+
+	boolean aggregate() default false;
 }
