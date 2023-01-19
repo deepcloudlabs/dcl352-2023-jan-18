@@ -20,6 +20,14 @@ public record Money(double amount, FiatCurrency currency) {
 	public Money() {
 		this(8_500);
 	}
+
+	public Money multiply(double rate) {
+		return new Money(rate*amount, this.currency);
+	}
+
+	public boolean lessThan(Money multiply) {
+		return false;
+	}
 	
 	
 }
