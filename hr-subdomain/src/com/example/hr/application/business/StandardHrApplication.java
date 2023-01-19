@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.example.hr.application.HrApplication;
 import com.example.hr.domain.Employee;
 import com.example.hr.domain.TcKimlikNo;
+import com.example.hr.domain.event.EmployeeFiredEvent;
 import com.example.hr.domain.event.EmployeeHiredEvent;
 import com.example.hr.domain.event.HrDomainEvent;
 import com.example.hr.domain.exception.EmployeeAlreadyExists;
@@ -34,14 +35,18 @@ public class StandardHrApplication implements HrApplication {
 
 	@Override
 	public Optional<Employee> fireEmployee(TcKimlikNo identityNo) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		var foundEmployee = employeeRepository.findEmployeeByIdentityNo(identityNo);
+		if(foundEmployee.isPresent()) {
+			var firedEmployee = employeeRepository.removeEmployee(identityNo);
+			var domainEvent = new EmployeeFiredEvent(firedEmployee.get());
+			eventPublisher.publishEvent(domainEvent);
+		}		
+		return foundEmployee;
 	}
 
 	@Override
 	public Optional<Employee> getEmployee(TcKimlikNo identityNo) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return employeeRepository.findEmployeeByIdentityNo(identityNo);
 	}
 
 }

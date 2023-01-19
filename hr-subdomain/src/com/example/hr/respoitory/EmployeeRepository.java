@@ -11,4 +11,6 @@ public interface EmployeeRepository {
 
 	Employee persist(Employee employee);
 
+	Optional<Employee> removeEmployee(TcKimlikNo identity);
+
 }

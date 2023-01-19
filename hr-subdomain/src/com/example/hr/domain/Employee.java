@@ -56,50 +56,50 @@ public class Employee {
 			this.identityNo = identityNo;
 		}
 
-		Builder fullname(String firstName, String lastName) {
+		public Builder fullname(String firstName, String lastName) {
 			this.fullname = new FullName(firstName, lastName);
 			return this;
 		}
 
-		Builder salary(double amount, FiatCurrency currency) {
+		public Builder salary(double amount, FiatCurrency currency) {
 			this.salary = new Money(amount, currency);
 			return this;
 		}
 
-		Builder salary(double amount) {
+		public Builder salary(double amount) {
 			return salary(amount, FiatCurrency.TL);
 		}
 
-		Builder iban(String value) {
+		public Builder iban(String value) {
 			this.iban = Iban.of(value);
 			return this;
 		}
 
-		Builder birthYear(int value) {
+		public Builder birthYear(int value) {
 			this.birthYear = new BirthYear(value);
 			return this;
 		}
 
-		Builder department(String value) {
+		public Builder department(String value) {
 			this.department = Department.valueOf(value);
 			return this;
 		}
 
-		Builder jobStyle(String value) {
+		public Builder jobStyle(String value) {
 			this.jobStyle = JobStyle.valueOf(value);
 			return this;
 		}
 
-		Builder photo(byte[] values) {
+		public Builder photo(byte[] values) {
 			this.photo = Photo.of(values);
 			return this;
 		}
 
-		Builder photo(String values) {
+		public Builder photo(String values) {
 			this.photo = Photo.of(values);
 			return this;
 		}
-		Employee build() {
+		public Employee build() {
 			// Business Rule
 			// Validation
 			// Constraint
